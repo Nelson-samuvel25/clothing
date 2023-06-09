@@ -12,9 +12,11 @@ import Header from './components/header/Header';
 
 import AuthenticationPage from './pages/authenticationpage/AuthenticationPage';
 
-import { auth } from './firebase/firebase.utils';
+import { auth ,createUserProfileDoc} from './firebase/firebase.utils';
 
 import SignIn from './components/siginin/SignIn';
+
+
 
 
 class App extends React.Component {
@@ -29,9 +31,8 @@ class App extends React.Component {
   onSubscriptionAuth = null;
 
   componentDidMount(){
-      this.onSubscriptionAuth = auth.onAuthStateChanged(user=>{
-        this.setState({currentUser : user})
-
+      this.onSubscriptionAuth = auth.onAuthStateChanged( user=>{
+         createUserProfileDoc(user);
         console.log(user);
       })
   }
