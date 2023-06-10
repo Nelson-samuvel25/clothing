@@ -14,7 +14,7 @@ import AuthenticationPage from './pages/authenticationpage/AuthenticationPage';
 
 import { auth ,createUserProfileDoc} from './firebase/firebase.utils';
 
-import SignIn from './components/siginin/SignIn';
+
 
 
 
@@ -31,9 +31,24 @@ class App extends React.Component {
   onSubscriptionAuth = null;
 
   componentDidMount(){
-      this.onSubscriptionAuth = auth.onAuthStateChanged( user=>{
-         createUserProfileDoc(user);
-        console.log(user);
+      this.onSubscriptionAuth = auth.onAuthStateChanged( async userAuth=>{
+        if(userAuth){
+          const userRef = await  createUserProfileDoc(userAuth);
+
+          userRef.onSnapshot((snapshot) =>{
+            this.setState({
+              currentUser : {
+                id : snapshot.id,
+                ...snapshot.data(),
+              }
+            },()=>console.log(this.state))
+          })
+        }
+        else{
+          this.setState({currentUser : userAuth})
+        }
+        
+       
       })
   }
 
@@ -52,7 +67,7 @@ class App extends React.Component {
               <Route exact path = '/' component = {HomePage}/>
               <Route path = "/shop" component = {Shop}/>
               <Route path = "/authentication" component = {AuthenticationPage}/>
-              <Route path = "/signin" component = {SignIn}/>
+      
           </Switch>
       </div>
      
