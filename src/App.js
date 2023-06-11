@@ -12,7 +12,11 @@ import Header from './components/header/Header';
 
 import AuthenticationPage from './pages/authenticationpage/AuthenticationPage';
 
-import { auth ,createUserProfileDoc} from './firebase/firebase.utils';
+import { auth ,userProfileDoc} from './firebase/firebase.utils';
+
+
+
+
 
 
 
@@ -31,13 +35,34 @@ class App extends React.Component {
   onSubscriptionAuth = null;
 
   componentDidMount(){
-      this.onSubscriptionAuth = auth.onAuthStateChanged( async userAuth=>{
-        if(userAuth){
-          const userRef = await  createUserProfileDoc(userAuth);
+      // this.onSubscriptionAuth = auth.onAuthStateChanged( async userAuth=>{
+      //   if(userAuth){
+      //     const userRef = await  createUserProfileDoc(userAuth);
 
-          userRef.onSnapshot((snapshot) =>{
+      //     userRef.onSnapshot((snapshot) =>{
+      //       this.setState({
+      //         currentUser : {
+      //           id : snapshot.id,
+      //           ...snapshot.data(),
+      //         }
+      //       },()=>console.log(this.state))
+      //     })
+      //   }
+      //   else{
+      //     this.setState({currentUser : userAuth})
+      //   }
+        
+       
+      // })
+
+
+      this.onSubscriptionAuth = auth.onAuthStateChanged(async(userAuth)=>{
+      if(userAuth){
+          const userRef = await userProfileDoc(userAuth);
+
+          userRef.onSnapshot(snapshot=>{
             this.setState({
-              currentUser : {
+              currentUser:{
                 id : snapshot.id,
                 ...snapshot.data(),
               }
@@ -45,10 +70,8 @@ class App extends React.Component {
           })
         }
         else{
-          this.setState({currentUser : userAuth})
+          this.setState({currentUser : userAuth})   
         }
-        
-       
       })
   }
 
@@ -67,6 +90,7 @@ class App extends React.Component {
               <Route exact path = '/' component = {HomePage}/>
               <Route path = "/shop" component = {Shop}/>
               <Route path = "/authentication" component = {AuthenticationPage}/>
+
       
           </Switch>
       </div>
