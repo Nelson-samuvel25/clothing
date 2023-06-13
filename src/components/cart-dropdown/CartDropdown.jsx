@@ -15,7 +15,9 @@ import { createStructuredSelector } from "reselect";
 
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
-const CartDropdown = ({cartItems,history})=>(
+import { toggleDropdown } from "../../redux/cart/cart-action";
+
+const CartDropdown = ({cartItems,history,dispatch})=>(
     <div className="cart-dropdown">
         <div className="cart-items">
 
@@ -27,7 +29,10 @@ const CartDropdown = ({cartItems,history})=>(
                 )
             }
         </div>
-        <CustomBtn onClick={()=>history.push('/checkout')} style={{
+        <CustomBtn onClick={()=>{
+            history.push('/checkout')
+            dispatch(toggleDropdown())
+        }} style={{
             fontSize:'12px'
         }}>Go to Checkout</CustomBtn>
     </div>
