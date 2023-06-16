@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/clothing/static/css/main.cbf5d53d.css",
+    "main.js": "/clothing/static/js/main.a3b7eb15.js",
+    "static/media/favicon.ico": "/clothing/static/media/favicon.567c449ce440c5cf2c57.ico",
+    "static/media/crown.svg": "/clothing/static/media/crown.207ae289b221bfaca0108507f9bb2f85.svg",
+    "static/media/shpping.svg": "/clothing/static/media/shpping.7d3b018c2275f55a46001a89c3c364bc.svg",
+    "index.html": "/clothing/index.html",
+    "main.cbf5d53d.css.map": "/clothing/static/css/main.cbf5d53d.css.map",
+    "main.a3b7eb15.js.map": "/clothing/static/js/main.a3b7eb15.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cbf5d53d.css",
+    "static/js/main.a3b7eb15.js"
+  ]
+}
